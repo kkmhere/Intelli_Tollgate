@@ -53,7 +53,7 @@ public class admin_login extends AppCompatActivity
                         {
                             if(pwd.length() < 6)
                             {
-                                password.setError("Minimum [password length is 6!!");
+                                password.setError("Minimum password length is 6!!");
                             }
                             else
                             {
