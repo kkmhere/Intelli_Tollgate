@@ -35,10 +35,8 @@ public class register extends AppCompatActivity {
         registerPass=(EditText)findViewById(R.id.regPass);
         signUp=(Button)findViewById(R.id.buttonReg);
         cardNumber=(EditText)findViewById(R.id.cardnumber);
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("CARD_NUMBER")
-                .child(mAuth.getCurrentUser().getUid());
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +50,9 @@ public class register extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
+
+                            final DatabaseReference myRef = database.getReference("CARD_NUMBER")
+                                    .child(mAuth.getCurrentUser().getUid());
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(register.this, "You have been registered successfully", Toast.LENGTH_SHORT).show();
                             myRef.setValue(ucard);
