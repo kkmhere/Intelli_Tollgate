@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "717983656433",
+    "firebase_url": "https://intellitollgate.firebaseio.com",
+    "project_id": "intellitollgate",
+    "storage_bucket": "intellitollgate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:717983656433:android:abda7e744009734d",
+        "android_client_info": {
+          "package_name": "com.example.intelli_tollgate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "717983656433-iittfd4teetbbdmimpita07c8bbi716s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.intelli_tollgate",
+            "certificate_hash": "e7bed90bd19c240e278478302fa522345fae5988"
+          }
+        },
+        {
+          "client_id": "717983656433-50moo95kfgqv34lm7qhet8rt5eq8p5f6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYRI5k3j9F1cKAkI7JANtdar8qebcPCCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "717983656433-50moo95kfgqv34lm7qhet8rt5eq8p5f6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

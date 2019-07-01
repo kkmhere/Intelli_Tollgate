@@ -24,6 +24,7 @@
         android:id="@+id/user_acces"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:onClick="userLogin"
         app:srcCompat="@drawable/user" />
 
     <TextView
@@ -42,5 +43,6 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginBottom="50dp"
+        android:onClick="adminLogin"
         app:srcCompat="@drawable/admin" />
 </LinearLayout>
