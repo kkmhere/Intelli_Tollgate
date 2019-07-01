@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void adminLogin(View view)
     {
-        Intent intent=new Intent(MainActivity.this,admin_login.class);
+        Intent intent=new Intent(MainActivity.this,check.class);
         startActivity(intent);
     }
 
