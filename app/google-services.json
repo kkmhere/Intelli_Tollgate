@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "717983656433-reuuie1r8aa70svo7tervsjd0k3r93fa.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.intelli_tollgate",
-            "certificate_hash": "958d5745371b958db8d656522636e06ab2261ba8"
-          }
-        },
-        {
           "client_id": "717983656433-iittfd4teetbbdmimpita07c8bbi716s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
