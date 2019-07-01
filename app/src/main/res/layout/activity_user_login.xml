@@ -6,7 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".user_login"
     android:orientation="vertical"
-    android:background="#b3e5fc">
+    android:background="@android:color/holo_blue_bright">
+
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="25dp"
+        android:id = "@+id/user_login"
+        android:layout_centerHorizontal="true"
+        app:srcCompat = "@drawable/user"/>
 
 
     <TextView
@@ -21,7 +30,7 @@
         android:textSize="50sp" />
 
     <EditText
-        android:id="@+id/carnumber"
+        android:id="@+id/card_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -30,6 +39,7 @@
         android:fontFamily="@font/advent_pro_thin"
         android:hint="CARD NUMBER"
         android:inputType="textPersonName"
+        android:padding="10dp"
         android:textSize="25sp"
         android:textStyle="bold" />
 
@@ -41,6 +51,7 @@
         android:layout_marginBottom="20dp"
         android:ems="10"
         android:hint="Password"
+        android:padding="10dp"
         android:inputType="textPassword"
         android:textSize="25sp" />
 
@@ -49,7 +60,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginBottom="30dp"
+        android:layout_marginRight="20dp"
+        android:textColor="#ffffff"
+        android:background="@drawable/buttons"
         android:text="LOGIN" />
 
     <Button
@@ -58,5 +73,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="goToRegister"
-        android:text="New User?Register here..." />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/input_design"
+        android:text="New User?? Register here..." />
 </LinearLayout>

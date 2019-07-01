@@ -42,7 +42,7 @@ public class user_login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
-        carnum=(EditText)findViewById(R.id.carnumber);
+        carnum=(EditText)findViewById(R.id.card_number);
         passs=(EditText)findViewById(R.id.userpassword);
         pass=passs.getText().toString();
         loginButton=(Button)findViewById(R.id.loginButton);

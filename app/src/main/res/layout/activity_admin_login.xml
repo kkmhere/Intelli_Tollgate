@@ -3,14 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/holo_blue_bright"
     tools:context=".admin_login">
+
+    <ImageView
+        android:layout_width="170dp"
+        android:layout_height="140dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:id = "@+id/admin_login_img"
+        app:srcCompat = "@drawable/admin"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/admin_login"
         android:text="ADMIN LOGIN"
+        android:layout_below="@+id/admin_login_img"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:textSize="50sp"
@@ -30,7 +41,6 @@
         android:fontFamily="@font/archivo_black"
         android:inputType="textEmailAddress"
         android:textColor="@color/colorPrimaryDark"
-        android:textColorHint="@color/colorPrimaryDark"
         android:textSize="17sp"
         android:textStyle="bold"/>
 
@@ -48,7 +58,6 @@
         android:inputType="textPassword"
         android:fontFamily="@font/archivo_black"
         android:textColor="@color/colorPrimaryDark"
-        android:textColorHint="@color/colorPrimaryDark"
         android:textSize="17sp"
         android:textStyle="bold"/>
 

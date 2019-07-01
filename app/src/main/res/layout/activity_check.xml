@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".check">
+    tools:context=".check"
+    android:background="@android:color/holo_blue_bright">
+
+    <TextView
+        android:id="@+id/authenticate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Admin Authentication"
+        android:textSize="25sp"
+        android:textAlignment="center"
+        android:padding="10dp"/>
 
     <EditText
         android:id="@+id/passCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/authenticate"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="93dp"
         android:layout_marginLeft="93dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="100dp"
         android:ems="10"
         android:inputType="textPassword" />
 
@@ -26,8 +37,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="133dp"
+        android:layout_marginTop="170dp"
         android:layout_marginEnd="157dp"
         android:layout_marginRight="157dp"
-        android:text="VERIFY" />
+        android:background="@drawable/buttons"
+        android:text="VERIFY"
+        android:textColor="#ffffff"/>
 </RelativeLayout>
