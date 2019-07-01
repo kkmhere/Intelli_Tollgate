@@ -64,7 +64,6 @@ public class admin_login extends AppCompatActivity
                         {
                             Intent intent= new Intent(admin_login.this,AdminActivity.class);
                             startActivity(intent);
-                            finish();
                         }
                     }
                 });
