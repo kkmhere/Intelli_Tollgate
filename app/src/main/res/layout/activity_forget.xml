@@ -16,7 +16,9 @@
         android:id="@+id/recovery"
         android:padding="10dp"
         android:textSize="20sp"
-        android:fontFamily="serif"/>
+        android:fontFamily="serif"
+        android:textStyle="bold"/>
+
 
     <EditText
         android:id="@+id/email"
