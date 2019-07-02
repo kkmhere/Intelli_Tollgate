@@ -8,5 +8,20 @@
         android:orderInCategory="1"
         app:showAsAction="always"/>
 
+    <item android:id="@+id/addMoney"
+        android:icon="@drawable/ic_add_circle_black_24dp"
+        android:title="ADD CREDIT"
+        android:orderInCategory="2"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/logout"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
+        android:title="Logout"
+        android:orderInCategory="3"
+        app:showAsAction="always"/>
+
+
+
+
 
 </menu>
