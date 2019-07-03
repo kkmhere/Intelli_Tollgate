@@ -1,7 +1,10 @@
 package com.example.intelli_tollgate;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+<<<<<<< HEAD
+
+import android.os.Bundle;
+=======
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
@@ -16,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+>>>>>>> b0a20bad048d6e5e6040b21ac33dad89b0c44e7d
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,21 +27,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class home extends AppCompatActivity {
+<<<<<<< HEAD
+=======
     Button pay1,pay2,pay3,pay4,pay5;
     int walletBalance=120;
     private FirebaseAuth mAuth;
+>>>>>>> b0a20bad048d6e5e6040b21ac33dad89b0c44e7d
 
     DatabaseReference myRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+<<<<<<< HEAD
+=======
         mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         myRef = database.getReference("WALLET")
                 .child(user.getUid());
-        myRef.setValue(walletBalance);
+    //    myRef.setValue(walletBalance);
         pay1 = findViewById(R.id.pay1);
         pay2 = findViewById(R.id.pay2);
         pay3 = findViewById(R.id.pay3);
@@ -144,5 +153,6 @@ public class home extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+>>>>>>> b0a20bad048d6e5e6040b21ac33dad89b0c44e7d
     }
 }

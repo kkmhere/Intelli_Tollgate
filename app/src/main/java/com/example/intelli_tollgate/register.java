@@ -25,7 +25,7 @@ public class register extends AppCompatActivity {
     Button signUp;
     private FirebaseAuth mAuth;
     String uname,userpass,ucard;
-
+    int walletBalance=120;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +56,10 @@ public class register extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(register.this, "You have been registered successfully", Toast.LENGTH_SHORT).show();
                             myRef.setValue(ucard);
+
+                            DatabaseReference myRef1=database.getReference("WALLET")
+                                    .child(mAuth.getCurrentUser().getUid());
+                            myRef1.setValue(walletBalance);
                             startActivity(new Intent(register.this, home.class));
 
 

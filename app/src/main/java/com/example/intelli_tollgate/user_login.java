@@ -60,6 +60,7 @@ public class user_login extends AppCompatActivity {
                         if(task.isSuccessful())
                         {
                             FirebaseUser user=mAuth.getCurrentUser();
+
                             Intent intent = new Intent(user_login.this, home.class);
                             startActivity(intent);
                             finish();
