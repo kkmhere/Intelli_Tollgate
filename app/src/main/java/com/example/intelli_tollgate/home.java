@@ -37,7 +37,7 @@ public class home extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         myRef = database.getReference("WALLET")
                 .child(user.getUid());
-        myRef.setValue(walletBalance);
+    //    myRef.setValue(walletBalance);
         pay1 = findViewById(R.id.pay1);
         pay2 = findViewById(R.id.pay2);
         pay3 = findViewById(R.id.pay3);

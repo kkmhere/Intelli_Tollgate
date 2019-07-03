@@ -11,13 +11,13 @@
     android:background="@android:color/holo_blue_bright">
 
     <ImageView
+        android:id="@+id/admin_login_img"
         android:layout_width="170dp"
         android:layout_height="140dp"
-        android:layout_marginLeft="105dp"
-        android:layout_marginTop="25dp"
         android:layout_centerHorizontal="true"
-        android:id = "@+id/admin_login_img"
-        app:srcCompat = "@drawable/register"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        app:srcCompat="@drawable/register" />
 
 
 
@@ -72,9 +72,9 @@
         android:id="@+id/buttonReg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="145dp"
-        android:textColor="#ffffff"
-        android:background="@drawable/buttons"/>
+        android:background="@drawable/buttons"
+        android:text="Register"
+        android:textColor="#ffffff" />
 </LinearLayout>
