@@ -11,8 +11,8 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
-const char* ssid = "Mi_A1_";
-const char* password = "Yorozuya";
+const char* ssid = "EC5";
+const char* password = "123456789";
 const char* mqtt_server = "iot.eclipse.org";
  
 char *msg;
