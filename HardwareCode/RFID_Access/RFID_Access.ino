@@ -50,7 +50,7 @@ void setup_wifi()
 void setup() 
 {
   servo.attach(2);//D4
-  servo.write(0);
+  servo.write(90);  // gate closed
   delay(1000);
   Serial.begin(9600);   // Initiate a serial communication
   SPI.begin();      // Initiate  SPI bus
@@ -143,9 +143,9 @@ void loop()
     msg = "Access Granted. You can Go!";
     client.publish("outTopic007", msg);
     Serial.println("You can go!");
-    servo.write(90);
+    servo.write(0); //Gate open
     delay(10000);
-    servo.write(0);
+    servo.write(90);  //gate Closed
     Serial.println("Next Please!");
     //Serial.println();
     statuss = 1;
