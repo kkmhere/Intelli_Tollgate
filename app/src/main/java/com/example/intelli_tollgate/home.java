@@ -1,10 +1,7 @@
 package com.example.intelli_tollgate;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-<<<<<<< HEAD
-
-import android.os.Bundle;
-=======
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
@@ -19,33 +16,34 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
->>>>>>> b0a20bad048d6e5e6040b21ac33dad89b0c44e7d
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class home extends AppCompatActivity {
-<<<<<<< HEAD
-=======
     Button pay1,pay2,pay3,pay4,pay5;
     int walletBalance=120;
+    Long liveBalance;
     private FirebaseAuth mAuth;
->>>>>>> b0a20bad048d6e5e6040b21ac33dad89b0c44e7d
-
+    FirebaseUser user;
     DatabaseReference myRef;
+    DatabaseReference myref1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-<<<<<<< HEAD
-=======
         mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
+         user= mAuth.getCurrentUser();
         myRef = database.getReference("WALLET")
                 .child(user.getUid());
+
+        myref1=database.getReference("WALLET");
     //    myRef.setValue(walletBalance);
         pay1 = findViewById(R.id.pay1);
         pay2 = findViewById(R.id.pay2);
@@ -110,9 +108,20 @@ public class home extends AppCompatActivity {
         switch(item.getItemId())
         {
             case R.id.wallet:
+                myref1.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        liveBalance = dataSnapshot.getValue(Long.class);
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
                 Toast.makeText(home.this,"WALLET SELECTED",Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(home.this);
-                builder.setMessage("WALLET BALANCE ->"+walletBalance)
+                builder.setMessage("WALLET BALANCE ->"+liveBalance)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // FIRE ZE MISSILES!
@@ -153,6 +162,5 @@ public class home extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
->>>>>>> b0a20bad048d6e5e6040b21ac33dad89b0c44e7d
     }
 }
