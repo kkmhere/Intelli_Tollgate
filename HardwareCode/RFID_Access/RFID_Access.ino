@@ -1,5 +1,5 @@
 /*
- *  Created by TheCircuit
+ *  Created by The Agents of SHIELD
 */
 
 #define SS_PIN 4  //D2
@@ -11,8 +11,8 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
-const char* ssid = "Mi_A1_";
-const char* password = "Yorozuya";
+const char* ssid = "EC5";
+const char* password = "123456789";
 const char* mqtt_server = "iot.eclipse.org";
  
 char *msg;
@@ -35,7 +35,8 @@ void setup_wifi()
 
   WiFi.begin(ssid, password);
 
-  while (WiFi.status() != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED) 
+  {
     delay(500);
     Serial.print(".");
   }
@@ -59,7 +60,7 @@ void setup()
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
   msg = "Welcome to Intelli Toll gate!";
-    client.publish("outTopic007", msg);
+  client.publish("outTopic007", msg);
   
 }
 
@@ -75,21 +76,26 @@ void callback(char* topic, byte* payload, unsigned int length)
   Serial.println();
 }
 
-void reconnect() {
+void reconnect() 
+{
   // Loop until we're reconnected
-  while (!client.connected()) {
+  while (!client.connected()) 
+  {
     Serial.print("Attempting MQTT connection...");
     // Create a random client ID
     String clientId = "ESP8266Client-";
     clientId += String(random(0xffff), HEX);
     // Attempt to connect
-    if (client.connect(clientId.c_str())) {
+    if (client.connect(clientId.c_str())) 
+    {
       Serial.println("connected");
       // Once connected, publish an announcement...
       //client.publish("outTopic", "hello world");
       // ... and resubscribe
       client.subscribe("inTopic008");
-    } else {
+    } 
+    else 
+    {
       Serial.print("failed, rc=");
       Serial.print(client.state());
       Serial.println(" try again in 5 seconds");
@@ -101,7 +107,7 @@ void reconnect() {
 
 void loop() 
 {
-   if (!client.connected()) 
+  if (!client.connected()) 
   {
     reconnect();
   }
