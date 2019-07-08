@@ -15,9 +15,9 @@
 #include <PubSubClient.h>
 #include <FirebaseArduino.h>
 
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-LiquidCrystal_I2C lcd(0x3F, 16, 2);
+//#include <Wire.h>
+//#include <LiquidCrystal_I2C.h>
+//LiquidCrystal_I2C lcd(0x3F, 16, 2);
 
 const char* ssid = "EC5";
 const char* password = "123456789";
@@ -56,24 +56,26 @@ void setup_wifi()
 
 void setup() 
 {
+  setup_wifi();
   servo.attach(15);//D8
   pinMode(GREEN_LED,OUTPUT);   //TX Grenn LED
   pinMode(RED_LED,OUTPUT);   // Red Light
 
   digitalWrite(GREEN_LED,LOW);  //Green OFF
   digitalWrite(RED_LED,HIGH);  //Red ON
-  Wire.begin(2,0);
-  lcd.begin();   // initializing the LCD
-  lcd.clear();
-  lcd.backlight(); // Enable or Turn On the backlight 
-  lcd.print(" Hello World!"); // Start Printing
+  //Wire.begin(2,0);
+  //lcd.begin();   // initializing the LCD
+  //lcd.clear();
+  //lcd.backlight(); // Enable or Turn On the backlight 
+  //lcd.print(" Hello World!"); // Start Printing
   servo.write(90);  // gate closed
   delay(1000);
-  Serial.begin(9600);   // Initiate a serial communication
+  Serial.begin(9600);
+  // Initiate a serial communication
   SPI.begin();      // Initiate  SPI bus
   mfrc522.PCD_Init();   // Initiate MFRC522
   
-  setup_wifi();
+  
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
   msg = "Welcome to Intelli Toll gate!";

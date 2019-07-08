@@ -28,5 +28,7 @@ void loop(){
   Serial.println("done");
   value=Firebase.getString("CARD_NUMBER/pjtKHpOjkYREQZLiZD7TiDJgokb2");
   Serial.println(value);
+  lcd.clear();
   lcd.print(value);
+  
 }
