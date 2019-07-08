@@ -112,7 +112,7 @@ void reconnect()
     }
   }
 }
-
+// test by raj
 void loop() 
 {
   if (!client.connected()) 
