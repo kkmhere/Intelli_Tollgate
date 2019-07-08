@@ -5,14 +5,17 @@
 #define SS_PIN 4  //D2
 #define RST_PIN 5 //D1
 
+#define RED_LED 16  // D0
+#define GREEN_LED 0 // D3
+
 #include <SPI.h>
 #include <MFRC522.h>
 #include <Servo.h>
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
-const char* ssid = "Mi_A1_";
-const char* password = "Yorozuya";
+const char* ssid = "EC5";
+const char* password = "123456789";
 const char* mqtt_server = "iot.eclipse.org";
  
 char *msg;
@@ -49,7 +52,12 @@ void setup_wifi()
 void setup() 
 {
   servo.attach(2);//D4
-  servo.write(0);
+  pinMode(GREEN_LED,OUTPUT);   //TX Grenn LED
+  pinMode(RED_LED,OUTPUT);   // Red Light
+
+  digitalWrite(GREEN_LED,LOW);  //Green OFF
+  digitalWrite(RED_LED,HIGH);  //Red ON
+  servo.write(90);  // gate closed
   delay(1000);
   Serial.begin(9600);   // Initiate a serial communication
   SPI.begin();      // Initiate  SPI bus
@@ -137,9 +145,13 @@ void loop()
     msg = "Access Granted. You can Go!";
     client.publish("outTopic007", msg);
     Serial.println("You can go!");
-    servo.write(90);
+    servo.write(0); //Gate open
+    digitalWrite(GREEN_LED,HIGH); // Green Light ON //Tx
+    digitalWrite(RED_LED,LOW);  // Red OFF    //Rx
     delay(10000);
-    servo.write(0);
+    digitalWrite(GREEN_LED,LOW);  //Green OFF
+    digitalWrite(RED_LED,HIGH);   //Red ON
+    servo.write(90);  //gate Closed
     Serial.println("Next Please!");
     //Serial.println();
     statuss = 1;
@@ -147,6 +159,8 @@ void loop()
   else   
   {
     Serial.println(" Access Denied ");
+    digitalWrite(GREEN_LED,LOW);  //Green OFF
+    digitalWrite(RED_LED,HIGH);  //Red ON
     msg = "Access Denied!";
     client.publish("outTopic007", msg);
     delay(3000);
