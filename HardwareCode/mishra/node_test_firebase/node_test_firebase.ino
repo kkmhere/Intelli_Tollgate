@@ -3,8 +3,8 @@
 
 
 
-const char* ssid = "Mishra";
-const char* pass = "keshavmis";
+const char* ssid = "EC5";
+const char* pass = "123456789";
 String value;
 void setup() {
   // put your setup code here, to run once:

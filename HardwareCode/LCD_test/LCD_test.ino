@@ -1,20 +1,32 @@
-#include <LiquidCrystal.h>
-const int RS = 6,EN = 7, d4 = 11, d5 = 8, d6 = 9, d7 = 10;   
-LiquidCrystal lcd(RS, EN, d4, d5, d6, d7);
-void setup() 
-{
-  // put your setup code here, to run once:
-   lcd.begin(16, 2);
-                      // Print a message to the LCD.
-  lcd.print("hello, world!");
+#include <Wire.h>
+#include <ESP8266WiFi.h>
+#include <FirebaseArduino.h>
+#include <LiquidCrystal_I2C.h>
 
+LiquidCrystal_I2C lcd(0x3F, 16, 2);
+
+const char* ssid = "EC5";
+const char* pass = "123456789";
+void setup(){
+  Wire.begin(2,0);
+  lcd.begin();   // initializing the LCD
+  lcd.backlight(); // Enable or Turn On the backlight 
+  Serial.begin(9600);
+  WiFi.begin(ssid,pass);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("CONNECTED");
+ 
+  Firebase.begin("intellitollgate.firebaseio.com","YiACACoSmOgUEnkYY3s8FNijEoAtkkvabOTX2C51");
 }
-
-void loop() 
-{
-  // put your main code here, to run repeatedly:
-  lcd.setCursor(0, 1);
-  // print the number of seconds since reset:
-  lcd.print(millis() / 1000);
-
+String value;
+void loop(){
+  // Nothing Absolutely Nothing!
+  Serial.println("done");
+  value=Firebase.getString("CARD_NUMBER/pjtKHpOjkYREQZLiZD7TiDJgokb2");
+  Serial.println(value);
+  lcd.print(value);
 }

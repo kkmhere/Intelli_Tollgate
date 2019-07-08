@@ -6,7 +6,7 @@
 #define RST_PIN 5 //D1
 
 #define RED_LED 16  // D0
-#define GREEN_LED 0 // D3
+#define GREEN_LED 9 // SSD2 
 
 #include <SPI.h>
 #include <MFRC522.h>
@@ -15,8 +15,12 @@
 #include <PubSubClient.h>
 #include <FirebaseArduino.h>
 
-const char* ssid = "Mishra";
-const char* password = "keshavmis";
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+LiquidCrystal_I2C lcd(0x3F, 16, 2);
+
+const char* ssid = "EC5";
+const char* password = "123456789";
 const char* mqtt_server = "iot.eclipse.org";
  
 char *msg;
@@ -52,12 +56,17 @@ void setup_wifi()
 
 void setup() 
 {
-  servo.attach(2);//D4
+  servo.attach(15);//D8
   pinMode(GREEN_LED,OUTPUT);   //TX Grenn LED
   pinMode(RED_LED,OUTPUT);   // Red Light
 
   digitalWrite(GREEN_LED,LOW);  //Green OFF
   digitalWrite(RED_LED,HIGH);  //Red ON
+  Wire.begin(2,0);
+  lcd.begin();   // initializing the LCD
+  lcd.clear();
+  lcd.backlight(); // Enable or Turn On the backlight 
+  lcd.print(" Hello World!"); // Start Printing
   servo.write(90);  // gate closed
   delay(1000);
   Serial.begin(9600);   // Initiate a serial communication
