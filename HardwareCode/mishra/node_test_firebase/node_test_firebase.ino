@@ -3,8 +3,8 @@
 
 
 
-const char* ssid = "HAWELI";
-const char* pass = "keshav.raj06";
+const char* ssid = "Mishra";
+const char* pass = "keshavmis";
 String value;
 void setup() {
   // put your setup code here, to run once:
@@ -27,7 +27,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   Serial.println("done");
-  Firebase.setFloat("number", 100.0); 
-  value=Firebase.getString("TEST1");
+  
+  value=Firebase.getString("CARD_NUMBER/cokyiHxnbSRKjAa9D4flfnN0Be63");
   Serial.println(value);
 }

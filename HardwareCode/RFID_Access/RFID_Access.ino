@@ -1,5 +1,5 @@
 /*
- *  Created by The Agents of SHIELD
+ *  Created by TheCircuit
 */
 
 #define SS_PIN 4  //D2
@@ -13,9 +13,10 @@
 #include <Servo.h>
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+#include <FirebaseArduino.h>
 
-const char* ssid = "EC5";
-const char* password = "123456789";
+const char* ssid = "Mishra";
+const char* password = "keshavmis";
 const char* mqtt_server = "iot.eclipse.org";
  
 char *msg;
@@ -38,8 +39,7 @@ void setup_wifi()
 
   WiFi.begin(ssid, password);
 
-  while (WiFi.status() != WL_CONNECTED) 
-  {
+  while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
@@ -68,9 +68,14 @@ void setup()
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
   msg = "Welcome to Intelli Toll gate!";
-  client.publish("outTopic007", msg);
+    client.publish("outTopic007", msg);
+
+ Firebase.begin("intellitollgate.firebaseio.com","YiACACoSmOgUEnkYY3s8FNijEoAtkkvabOTX2C51");
+    
   
 }
+
+String cardNumber;
 
 void callback(char* topic, byte* payload, unsigned int length) 
 {
@@ -84,26 +89,21 @@ void callback(char* topic, byte* payload, unsigned int length)
   Serial.println();
 }
 
-void reconnect() 
-{
+void reconnect() {
   // Loop until we're reconnected
-  while (!client.connected()) 
-  {
+  while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
     // Create a random client ID
     String clientId = "ESP8266Client-";
     clientId += String(random(0xffff), HEX);
     // Attempt to connect
-    if (client.connect(clientId.c_str())) 
-    {
+    if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       // Once connected, publish an announcement...
       //client.publish("outTopic", "hello world");
       // ... and resubscribe
       client.subscribe("inTopic008");
-    } 
-    else 
-    {
+    } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
       Serial.println(" try again in 5 seconds");
@@ -115,7 +115,10 @@ void reconnect()
 // test by raj
 void loop() 
 {
-  if (!client.connected()) 
+
+  
+  //Serial.println(cardNumber);
+   if (!client.connected()) 
   {
     reconnect();
   }
@@ -144,8 +147,9 @@ void loop()
   }
   content.toUpperCase();
   Serial.println();
-  
-  if (content.substring(1) == "35_3C_B1_15") //change UID of the card that you want to give access
+  cardNumber=Firebase.getString("CARD_NUMBER/pjtKHpOjkYREQZLiZD7TiDJgokb2");
+  Serial.println(cardNumber);
+  if (content == cardNumber) //change UID of the card that you want to give access
   {
     Serial.println(" Access Granted ");
     msg = "Access Granted. You can Go!";
