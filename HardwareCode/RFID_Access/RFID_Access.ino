@@ -13,9 +13,10 @@
 #include <Servo.h>
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+#include <FirebaseArduino.h>
 
-const char* ssid = "EC5";
-const char* password = "123456789";
+const char* ssid = "Mishra";
+const char* password = "keshavmis";
 const char* mqtt_server = "iot.eclipse.org";
  
 char *msg;
@@ -68,8 +69,13 @@ void setup()
   client.setCallback(callback);
   msg = "Welcome to Intelli Toll gate!";
     client.publish("outTopic007", msg);
+
+ Firebase.begin("intellitollgate.firebaseio.com","YiACACoSmOgUEnkYY3s8FNijEoAtkkvabOTX2C51");
+    
   
 }
+
+String cardNumber;
 
 void callback(char* topic, byte* payload, unsigned int length) 
 {
@@ -109,6 +115,9 @@ void reconnect() {
 
 void loop() 
 {
+
+  
+  //Serial.println(cardNumber);
    if (!client.connected()) 
   {
     reconnect();
@@ -138,8 +147,9 @@ void loop()
   }
   content.toUpperCase();
   Serial.println();
-  
-  if (content.substring(1) == "35_3C_B1_15") //change UID of the card that you want to give access
+  cardNumber=Firebase.getString("CARD_NUMBER/pjtKHpOjkYREQZLiZD7TiDJgokb2");
+  Serial.println(cardNumber);
+  if (content == cardNumber) //change UID of the card that you want to give access
   {
     Serial.println(" Access Granted ");
     msg = "Access Granted. You can Go!";
