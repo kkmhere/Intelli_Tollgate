@@ -5,8 +5,8 @@
 
 LiquidCrystal_I2C lcd(0x3F, 16, 2);
 
-const char* ssid = "EC5";
-const char* pass = "123456789";
+const char* ssid = "HAWELI";
+const char* pass = "keshav.raj06";
 void setup(){
   Wire.begin(2,0);
   lcd.begin();   // initializing the LCD
