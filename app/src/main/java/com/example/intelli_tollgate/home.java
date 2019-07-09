@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,12 +28,15 @@ import com.google.firebase.database.ValueEventListener;
 
 public class home extends AppCompatActivity {
     Button pay1,pay2,pay3,pay4,pay5;
-    int walletBalance=120;
-    Long liveBalance;
+    int walletBalance,niceAmountInt,payStatus=0;
+    int liveBalance;
+    int currentBalance;
     private FirebaseAuth mAuth;
     FirebaseUser user;
     DatabaseReference myRef;
     DatabaseReference myref1;
+    DatabaseReference payRef;
+    String niceAmount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +47,9 @@ public class home extends AppCompatActivity {
         myRef = database.getReference("WALLET")
                 .child(user.getUid());
 
+        payRef=database.getReference("PAY_STATUS")
+                .child(user.getUid());
+        payRef.setValue(payStatus);
         myref1=database.getReference("WALLET");
     //    myRef.setValue(walletBalance);
         pay1 = findViewById(R.id.pay1);
@@ -50,13 +57,41 @@ public class home extends AppCompatActivity {
         pay3 = findViewById(R.id.pay3);
         pay4 = findViewById(R.id.pay4);
         pay5 = findViewById(R.id.pay5);
-
-
+        TextView nice=(TextView)findViewById(R.id.nice_amount);
+        niceAmount=nice.getText().toString();
+        niceAmountInt= Integer.parseInt(niceAmount);
 
         pay1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                //Toast.makeText(home.this, String.valueOf(niceAmountInt),Toast.LENGTH_SHORT).show();
+
+                myref1.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        currentBalance = dataSnapshot.getValue(Integer.class);
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+                //Toast.makeText(home.this,String.valueOf(currentBalance),Toast.LENGTH_SHORT).show();
+                if(currentBalance>=niceAmountInt)
+                {
+                    currentBalance=currentBalance-niceAmountInt;
+                    payStatus=1;
+                    payRef.setValue(payStatus);
+                    myRef.setValue(currentBalance);
+                    Toast.makeText(home.this,"Toll PAID.. \nNew BALANCE ->"+String.valueOf(currentBalance),Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(home.this,"MADARCHOD PAISE NHI HAI TUMHARE PASS",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -111,7 +146,7 @@ public class home extends AppCompatActivity {
                 myref1.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        liveBalance = dataSnapshot.getValue(Long.class);
+                        liveBalance = dataSnapshot.getValue(Integer.class);
 
                     }
 
@@ -141,7 +176,7 @@ public class home extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
 
-                                walletBalance=walletBalance+100;
+                                walletBalance=liveBalance+100;
                                 Toast.makeText(home.this,"New Balance="+walletBalance,Toast.LENGTH_LONG).show();
                                 myRef.setValue(walletBalance);
                             }

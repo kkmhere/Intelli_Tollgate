@@ -25,7 +25,7 @@ public class register extends AppCompatActivity {
     Button signUp;
     private FirebaseAuth mAuth;
     String uname,userpass,ucard;
-    int walletBalance=120;
+    int walletBalance=500;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
