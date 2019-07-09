@@ -7,10 +7,10 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <FirebaseArduino.h>
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
+//#include <Wire.h>
+//#include <LiquidCrystal_I2C.h>
 
-LiquidCrystal_I2C lcd(0x3F, 16, 2);
+//LiquidCrystal_I2C lcd(0x3F, 16, 2);
 
 const char* ssid = "HAWELI";
 const char* password = "keshav.raj06";
@@ -58,9 +58,9 @@ void setup() {
   mfrc522.PCD_Init();   // Initiate MFRC522
   
   setup_wifi();
-  Wire.begin(2,0);
-  lcd.begin();   // initializing the LCD
-  lcd.backlight(); 
+  //Wire.begin(2,0);
+  //lcd.begin();   // initializing the LCD
+  //lcd.backlight(); 
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
   msg = "Welcome to Intelli Toll gate!";
@@ -70,7 +70,8 @@ void setup() {
   cardNumber=Firebase.getString("CARD_NUMBER/nLrJ6QBB1fZdmvIchc3ziqqiyqM2");
   Serial.println(cardNumber);
  // payStatus=Firebase.getInt("PAY_STATUS/nLrJ6QBB1fZdmvIchc3ziqqiyqM2");
- 
+  pinMode(2,OUTPUT);
+  pinMode(0,OUTPUT);
 }
 
 void callback(char* topic, byte* payload, unsigned int length) 
@@ -115,8 +116,9 @@ void loop() {
 
   //cardNumber=Firebase.getString("CARD_NUMBER/pjtKHpOjkYREQZLiZD7TiDJgokb2");
 //  Serial.println(cardNumber);
-  lcd.clear();
-  lcd.print("N.I.C.E Road!!!");
+ // lcd.clear();
+  //lcd.print("N.I.C.E Road!!!");
+  digitalWrite(0,HIGH);
      if (!client.connected()) 
   {
     reconnect();
@@ -153,9 +155,11 @@ void loop() {
   {
     payStatus=Firebase.getInt("PAY_STATUS/nLrJ6QBB1fZdmvIchc3ziqqiyqM2");
     if(payStatus==1){
+      digitalWrite(0,LOW);
+      digitalWrite(2,HIGH);
       Serial.println(" Access Granted ");
-      lcd.clear();
-      lcd.print("Access Granted!!!");
+    //  lcd.clear();
+     // lcd.print("Access Granted!!!");
       msg = "Access Granted. You can Go!";
       client.publish("outTopic007", msg);
       Serial.println("You can go!");
@@ -163,27 +167,29 @@ void loop() {
       delay(10000);
       servo.write(0);
       Serial.println("Next Please!");
-      lcd.clear();
-      lcd.print("Next!!!");
-      delay(5000);
-      lcd.clear();
-      lcd.print("N.I.C.E Road!!!");
+      //lcd.clear();
+      //lcd.print("Next!!!");
+      //delay(5000);
+      //lcd.clear();
+      //lcd.print("N.I.C.E Road!!!");
     //Serial.println();
       statuss = 1;
+      digitalWrite(2,LOW);
+      digitalWrite(0,HIGH);
     }
     else
     {
       Serial.println("Payment not yet done!!!");
-      lcd.clear();
-      lcd.print("Not Paid");
+      //lcd.clear();
+      //lcd.print("Not Paid");
       delay(5000);
     }
   }
   else   
   {
     Serial.println(" Access Denied ");
-    lcd.clear();
-    lcd.print("Bharwa Vaibhav");
+    //lcd.clear();
+    //lcd.print("Bharwa Vaibhav");
     msg = "Access Denied!";
     client.publish("outTopic007", msg);
     delay(3000);
