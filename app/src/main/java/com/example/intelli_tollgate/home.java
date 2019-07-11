@@ -29,13 +29,13 @@ import com.google.firebase.database.ValueEventListener;
 public class home extends AppCompatActivity {
     Button pay1,pay2,pay3,pay4,pay5;
     int walletBalance,niceAmountInt,payStatus=0,nelaAmountInt;
-    int liveBalance;
+    int tollNo;
     int currentBalance;
     private FirebaseAuth mAuth;
     FirebaseUser user;
     DatabaseReference myRef;
     DatabaseReference myref1;
-    DatabaseReference payRef;
+    DatabaseReference payRef,tollRef;
     String niceAmount,nelaAmount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,9 @@ public class home extends AppCompatActivity {
         payRef.setValue(payStatus);
         myref1=database.getReference("WALLET");
     //    myRef.setValue(walletBalance);
+        tollRef=database.getReference("TOLL_NO")
+                .child(user.getUid());
+
         pay1 = findViewById(R.id.pay1);
         pay2 = findViewById(R.id.pay2);
 
@@ -86,8 +89,10 @@ public class home extends AppCompatActivity {
                 {
                     currentBalance=currentBalance-niceAmountInt;
                     payStatus=1;
+                    tollNo=1;
                     payRef.setValue(payStatus);
                     myRef.setValue(currentBalance);
+                    tollRef.setValue(tollNo);
                     Toast.makeText(home.this,"Toll PAID.. \nNew BALANCE ->"+String.valueOf(currentBalance),Toast.LENGTH_LONG).show();
                 }
                 else
@@ -117,8 +122,10 @@ public class home extends AppCompatActivity {
                 {
                     currentBalance=currentBalance-nelaAmountInt;
                     payStatus=1;
+                    tollNo=2;
                     payRef.setValue(payStatus);
                     myRef.setValue(currentBalance);
+                    tollRef.setValue(tollNo);
                     Toast.makeText(home.this,"Toll PAID.. \nNew BALANCE ->"+String.valueOf(currentBalance),Toast.LENGTH_LONG).show();
                 }
                 else
