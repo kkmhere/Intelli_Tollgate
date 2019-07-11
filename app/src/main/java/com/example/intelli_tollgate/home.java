@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class home extends AppCompatActivity {
     Button pay1,pay2,pay3,pay4,pay5;
-    int walletBalance,niceAmountInt,payStatus=0;
+    int walletBalance,niceAmountInt,payStatus=0,nelaAmountInt;
     int liveBalance;
     int currentBalance;
     private FirebaseAuth mAuth;
@@ -36,7 +36,7 @@ public class home extends AppCompatActivity {
     DatabaseReference myRef;
     DatabaseReference myref1;
     DatabaseReference payRef;
-    String niceAmount;
+    String niceAmount,nelaAmount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +54,14 @@ public class home extends AppCompatActivity {
     //    myRef.setValue(walletBalance);
         pay1 = findViewById(R.id.pay1);
         pay2 = findViewById(R.id.pay2);
-        pay3 = findViewById(R.id.pay3);
-        pay4 = findViewById(R.id.pay4);
-        pay5 = findViewById(R.id.pay5);
+
         TextView nice=(TextView)findViewById(R.id.nice_amount);
         niceAmount=nice.getText().toString();
         niceAmountInt= Integer.parseInt(niceAmount);
+
+        TextView nela=(TextView)findViewById(R.id.nela_Amount);
+        nelaAmount=nela.getText().toString();
+        nelaAmountInt= Integer.parseInt(nelaAmount);
 
         pay1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,30 +100,36 @@ public class home extends AppCompatActivity {
         pay2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                myref1.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        currentBalance = dataSnapshot.getValue(Integer.class);
 
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+                //Toast.makeText(home.this,String.valueOf(currentBalance),Toast.LENGTH_SHORT).show();
+                if(currentBalance>=nelaAmountInt)
+                {
+                    currentBalance=currentBalance-nelaAmountInt;
+                    payStatus=1;
+                    payRef.setValue(payStatus);
+                    myRef.setValue(currentBalance);
+                    Toast.makeText(home.this,"Toll PAID.. \nNew BALANCE ->"+String.valueOf(currentBalance),Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+
+                    Toast.makeText(home.this,"Balance Hana Illa",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
-        pay3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
-
-        pay4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        pay5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         Toolbar toolbar=(Toolbar)findViewById(R.id.mytoolbar);
         if(toolbar!=null)
@@ -146,7 +154,7 @@ public class home extends AppCompatActivity {
                 myref1.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        liveBalance = dataSnapshot.getValue(Integer.class);
+                        currentBalance = dataSnapshot.getValue(Integer.class);
 
                     }
 
@@ -156,7 +164,7 @@ public class home extends AppCompatActivity {
                 });
                 Toast.makeText(home.this,"WALLET SELECTED",Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(home.this);
-                builder.setMessage("WALLET BALANCE ->"+liveBalance)
+                builder.setMessage("WALLET BALANCE ->"+currentBalance)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // FIRE ZE MISSILES!
@@ -176,7 +184,7 @@ public class home extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
 
-                                walletBalance=liveBalance+100;
+                                walletBalance=currentBalance+100;
                                 Toast.makeText(home.this,"New Balance="+walletBalance,Toast.LENGTH_LONG).show();
                                 myRef.setValue(walletBalance);
                             }
