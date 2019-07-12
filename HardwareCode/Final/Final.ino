@@ -12,8 +12,8 @@
 
 LiquidCrystal_I2C lcd(0x3F, 16, 2);
 
-const char* ssid = "HAWELI";
-const char* password = "keshav.raj06";
+const char* ssid = "Mishra";
+const char* password = "keshavmis";
 const char* mqtt_server = "iot.eclipse.org";
  
 char *msg;
@@ -48,10 +48,11 @@ void setup_wifi()
 }
 String cardNumber;
 int payStatus;
+int tollNo;
 void setup() {
   
   servo.attach(15);//D8
-  servo.write(0);
+  servo.write(90);
   delay(1000);
   Serial.begin(9600);   // Initiate a serial communication
   SPI.begin();      // Initiate  SPI bus
@@ -67,7 +68,8 @@ void setup() {
     client.publish("outTopic007", msg);
   //connecting firebase
   Firebase.begin("intellitollgate.firebaseio.com","YiACACoSmOgUEnkYY3s8FNijEoAtkkvabOTX2C51");  
-  cardNumber=Firebase.getString("CARD_NUMBER/nLrJ6QBB1fZdmvIchc3ziqqiyqM2");
+  cardNumber=Firebase.getString("CARD_NUMBER/Je8ze85QaQVbwDWuBRObv6Tkbgh2");
+  
   Serial.println(cardNumber);
  // payStatus=Firebase.getInt("PAY_STATUS/nLrJ6QBB1fZdmvIchc3ziqqiyqM2");
  
@@ -151,25 +153,40 @@ void loop() {
   
   if (content == cardNumber) //change UID of the card that you want to give access
   {
-    payStatus=Firebase.getInt("PAY_STATUS/nLrJ6QBB1fZdmvIchc3ziqqiyqM2");
+    payStatus=Firebase.getInt("PAY_STATUS/Je8ze85QaQVbwDWuBRObv6Tkbgh2");
+    tollNo=Firebase.getInt("TOLL_NO/Je8ze85QaQVbwDWuBRObv6Tkbgh2");
+    
     if(payStatus==1){
-      Serial.println(" Access Granted ");
-      lcd.clear();
-      lcd.print("Access Granted!!!");
-      msg = "Access Granted. You can Go!";
-      client.publish("outTopic007", msg);
-      Serial.println("You can go!");
-      servo.write(90);
-      delay(10000);
-      servo.write(0);
-      Serial.println("Next Please!");
-      lcd.clear();
-      lcd.print("Next!!!");
-      delay(5000);
-      lcd.clear();
-      lcd.print("N.I.C.E Road!!!");
+      if(tollNo==1)
+      {
+        Serial.println(" Access Granted ");
+        lcd.clear();
+        lcd.print("Access Granted!!!");
+        msg = "Access Granted. You can Go!";
+        client.publish("outTopic007", msg);
+        Serial.println("You can go!");
+        servo.write(0);
+        delay(10000);
+        servo.write(90);
+        Serial.println("Next Please!");
+        lcd.clear();
+        lcd.print("Next!!!");
+        Firebase.setInt("PAY_STATUS/Je8ze85QaQVbwDWuBRObv6Tkbgh2",0);
+        delay(5000);
+        
+        lcd.clear();
+        lcd.print("N.I.C.E Road!!!");
     //Serial.println();
-      statuss = 1;
+        statuss = 1;
+        lcd.clear();
+      }
+      else
+      {
+        Serial.println("NOT PAID FOR THIS ToLL");
+        lcd.clear();
+        lcd.print("NOT CORRECT TOLL");
+        delay(2000);
+      }
     }
     else
     {
@@ -183,7 +200,7 @@ void loop() {
   {
     Serial.println(" Access Denied ");
     lcd.clear();
-    lcd.print("Bharwa Vaibhav");
+    lcd.print("CARD NO REGISTERED");
     msg = "Access Denied!";
     client.publish("outTopic007", msg);
     delay(3000);
